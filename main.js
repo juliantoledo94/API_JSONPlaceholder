@@ -42,7 +42,9 @@ const createCard = ({name, email}) =>`
 const modal = document.querySelector(".modal")
 
 
-
+modal.querySelector(".delete").addEventListener("click", ()=>{
+    modal.classList.remove("is-active")
+});
 
 
 
@@ -61,11 +63,12 @@ const render = async () =>{
     await renderPage();
 
     // paso 2 una vez que se renderiza la pagina puedo empezar a trabajar en ella 
+    // paso 3 me busco todas las cards (esto sin un for each que las trabaje de a una da error)
     const cards = document.querySelectorAll(".card-body")
     
     cards.forEach(card =>{
         card.addEventListener("click", ()=>{
-            console.log("funciona con cada card")
+            modal.classList.add("is-active")
         })
     })
 }
