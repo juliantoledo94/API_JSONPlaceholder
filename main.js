@@ -11,20 +11,18 @@ const getUsuariosFromApi = (endpoint) =>{
     .then(response => response.json())
     .then( data => data.map((usuarios)=> {
         const {name, email} = usuarios;
-        console.log(name, email)
+        
         return {name, email}
     }))
-    /*
-    .then(data => {
-        const nombres = data.map(usuario => usuario.name);
-        console.log(nombres); // Imprime un array con los nombres
-        return nombres; // Si deseas devolver los nombres para usarlos en otro lugar
-    });
-    * */
+   
 }
 
 
 const pageContent = document.querySelector("#content")
+
+
+
+
 
 const createCard = ({name, email}) =>`
     <div class="row container m-1" ">
@@ -40,6 +38,14 @@ const createCard = ({name, email}) =>`
     </div>
 `
 
+// pasos para la modal 1 -> la busco del html
+const modal = document.querySelector(".modal")
+
+
+
+
+
+
 const renderPage = async () =>{
     const firstPage = await getUsuariosFromApi("users");
     const template = firstPage
@@ -49,4 +55,19 @@ const renderPage = async () =>{
 }
 
 
-renderPage();
+
+
+const render = async () =>{
+    await renderPage();
+
+    // paso 2 una vez que se renderiza la pagina puedo empezar a trabajar en ella 
+    const cards = document.querySelectorAll(".card-body")
+    
+    cards.forEach(card =>{
+        card.addEventListener("click", ()=>{
+            console.log("funciona con cada card")
+        })
+    })
+}
+
+render();
