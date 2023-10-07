@@ -6,8 +6,8 @@ Cuando se hace clic en un usuario, abrir un modal con más detalles del usuario,
  
 */
 
-const getUsuariosFromApi = () =>{
-    return fetch(`https://jsonplaceholder.typicode.com/users`)
+const getUsuariosFromApi = (endpoint) =>{
+    return fetch(`https://jsonplaceholder.typicode.com/${endpoint}`)
     .then(response => response.json())
     .then( data => data.map((usuarios)=> {
         const {name, email} = usuarios;
@@ -23,4 +23,30 @@ const getUsuariosFromApi = () =>{
     * */
 }
 
-getUsuariosFromApi();
+
+const pageContent = document.querySelector("#content")
+
+const createCard = ({name, email}) =>`
+    <div class="row container m-1" ">
+        <div class="col-sm-6 mb-3 mb-sm-0 container">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">${name}</h5>
+                    <p class="card-text">${email}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+`
+
+const renderPage = async () =>{
+    const firstPage = await getUsuariosFromApi("users");
+    const template = firstPage
+    .map(usuario => createCard(usuario))
+    .join("")
+    pageContent.innerHTML = template
+}
+
+
+renderPage();
