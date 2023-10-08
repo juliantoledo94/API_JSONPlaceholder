@@ -23,9 +23,9 @@ const getUsuariosInfoFromApi = (id) =>{
     return fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
     .then(response => response.json())
     .then(data =>{
-        const{phone, website} = data;
-        console.log(phone, website)
-        return {phone, website}
+        const{address, phone, website} = data;
+        console.log(address, phone, website)
+        return {address ,phone, website}
     })
 }
 
@@ -71,11 +71,21 @@ const renderPage = async () =>{
 
 const renderModal = (userInfo) =>{
     console.log(userInfo)
-    const {phone, website} = userInfo
+    const {address ,phone, website} = userInfo
     const titleName = modal.querySelector(".modal-card-body-telefono");
     const emailElement = modal.querySelector(".modal-card-body-website");
-    titleName.innerHTML= phone;
-    emailElement.innerHTML= website;
+    const addresList = modal.querySelector(".modal-card-body-address");
+    titleName.innerHTML= "Telefono: " + phone;
+    emailElement.innerHTML= "Sitio web: " + website;
+
+    const addressItems =`
+    DOMICILIO
+    <li><strong>Street:</strong> ${address.street}</li>
+    <li><strong>suite:</strong> ${address.suite}</li>
+    <li><strong>city:</strong> ${address.city}</li>
+    <li><strong>zipcode:</strong> ${address.zipcode}</li>
+    `
+    addresList.innerHTML = addressItems
 }
 
 
